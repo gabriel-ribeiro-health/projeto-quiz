@@ -3,7 +3,7 @@
 
 1. **Install dependencies**:
     ```sh
-    pip install fastapi uvicorn
+    pip install fastapi uvicorn redis
     ```
 
 2. **Run the application**:

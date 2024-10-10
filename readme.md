@@ -26,6 +26,6 @@ uvicorn main:app --reload
 
 ```
 
-### Postman collection
+## Postman collection
 
 Postman collection on root folder ./redis.postman_collection.json

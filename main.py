@@ -19,7 +19,10 @@ def get_question(question_key: str):
 def create_question(question: Question):
     # connect to redis localhost
     r = redis.Redis(host='localhost', port=6379, decode_responses=True)
-    
+        
+    if r.hget("question:"+str(question.question_id), "question_text")!=None:
+        return {"message": "Question already exists"}
+
     # Use the data from the request body
     r.hset(f'question:{question.question_id}', 'question_text', question.question_text)
 

@@ -26,3 +26,8 @@ to see doc swagger:  `http://127.0.0.1:8000/docs`
 ```sh
 uvicorn main:app --reload
 
+## Endpoints
+
+- **GET /**: Returns a welcome message.
+
+Postman collection on root folder ./redis.postman_collection.json

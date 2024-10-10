@@ -29,5 +29,8 @@ uvicorn main:app --reload
 ## Endpoints
 
 - **GET /**: Returns a welcome message.
+```
+
+### Postman collection
 
 Postman collection on root folder ./redis.postman_collection.json

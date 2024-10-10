@@ -8,7 +8,7 @@
 
 2. **Run the application**:
     ```sh
-    uvicorn main:app --reload
+    uvicorn main:app --reload --log-level info
     ```
 
 ## Endpoints

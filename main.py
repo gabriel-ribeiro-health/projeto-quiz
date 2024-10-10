@@ -1,10 +1,26 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+import redis
 
 app = FastAPI()
 
-@app.get("/")
-def hello_root():
-    return {"message": "Hello World"}
+class Question(BaseModel):
+    question_text: str
+    question_id: int
 
 
-#https://www.alura.com.br/artigos/como-criar-apis-python-usando-fastapi?utm_term=&utm_campaign=%5BSearch%5D+%5BPerformance%5D+-+Dynamic+Search+Ads+-+Artigos+e+Conte%C3%BAdos&utm_source=adwords&utm_medium=ppc&hsa_acc=7964138385&hsa_cam=11384329873&hsa_grp=164240702375&hsa_ad=703853654617&hsa_src=g&hsa_tgt=dsa-2276348409543&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAjw9p24BhB_EiwA8ID5BnW-RGA9A-LR06ET1OlSp6NVT5aSfcYK4ohBE6wwwpuLRMELCOfyIhoCnNoQAvD_BwE
+@app.get("/question/{question_key}")
+def get_question(question_key: str):
+    r = redis.Redis(host='localhost', port=6379, decode_responses=True)    
+    return r.hgetall("question:"+question_key)
+
+
+@app.post("/question")
+def create_question(question: Question):
+    # connect to redis localhost
+    r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+    
+    # Use the data from the request body
+    r.hset(f'question:{question.question_id}', 'question_text', question.question_text)
+
+    return {"message": "Question has been created"}
